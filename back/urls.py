@@ -18,12 +18,15 @@ from django.urls import path, include
 from rest_framework import routers
 from profiles.views import ProfileViewSet
 from profiles.views import RegisterViewSet
+from django.shortcuts import redirect
+
 router = routers.DefaultRouter()
 
 router.register(r"profiles", ProfileViewSet)
 router.register(r"auth/register", RegisterViewSet, basename='register')
 
 urlpatterns = [
+    path("", lambda request: redirect("api/", permanent=True)),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path('auth/', include('rest_authtoken.urls')),
